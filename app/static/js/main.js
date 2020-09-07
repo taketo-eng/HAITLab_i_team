@@ -1,1 +1,12 @@
 'use strict';
+
+(function($){
+
+    $(()=>{
+
+
+
+        
+    });
+
+})(jQuery);

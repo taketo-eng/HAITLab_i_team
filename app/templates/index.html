@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>HAITLab Iチーム開発ページ</title>
-    <link rel="stylesheet" href="../static/css/normalize.css">
-    <link rel="stylesheet" href="../static/css/style.css">
+    <!-- <link rel="stylesheet" href="../static/css/normalize.css">
+    <link rel="stylesheet" href="../static/css/style.css"> -->
     <!-- これはflask用 -->
-    <!-- <link rel="stylesheet" href="normalize.css"> -->
-    <!-- <link rel="stylesheet" href="style.css"> -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/normalize.css') }}"> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> 
     <!--jQuery-->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 </head>
@@ -31,8 +31,8 @@
     <footer class="footer">
         <small class="copyrights">©2020 HAIT Lab Primary 4th I_team All rights reserved.</small>
     </footer>
-    <script src="../static/js/main.js"></script>
+    <!-- <script src="../static/js/main.js"></script> -->
     <!-- これはflask用 -->
-    <!-- <script src="main.js"></script> -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

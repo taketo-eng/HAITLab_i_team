@@ -32,7 +32,7 @@ a:active{
     top:0;
     width:100%;
     height:50px;
-    background:rgb(4, 7, 41);
+    background: rgba(4, 7, 41, 0.9);
     display:flex;
     justify-content:center;
     align-items:center;
@@ -40,6 +40,7 @@ a:active{
     h1{
         color:#fff;
         margin:0;
+        text-shadow:0 0 10px rgb(231, 228, 44);
     }
 }
 
@@ -47,7 +48,7 @@ a:active{
     margin-top:50px;
     width:100%;
     .top{
-        height:500px;
+        height:800px;
         background-image:url("../images/background.jpg");
         background-repeat:no-repeat;
         background-position:center center;
@@ -55,23 +56,39 @@ a:active{
         display:flex;
         justify-content:center;
         place-items:center;
+        flex-direction:column;
 
         .title{
             font-size:4rem;
             font-weight:bold;
             text-shadow:0 0 10px rgb(231, 228, 44);
             color:#fff;
+            margin:0;
+        }
+
+        .subtitle{
+            font-size:2rem;
+            color:#fff;
+            text-shadow:0 0 10px rgb(231, 228, 44);
+            margin:0;
         }
     }
 
     .contents{
         width:70%;
-        margin:0 auto;
+        margin:50px auto;
     }
 
     .form{
+        text-align:center;
+
         .form-label{
-            
+            font-size:2rem;
+            font-weight:bold;
+            color:#fff;
+            background:rgb(4, 7, 41);
+            padding:5px 10px;
+            cursor:pointer;
         }
 
         .fileForm{
@@ -79,8 +96,17 @@ a:active{
         }
 
         .btn{
-            padding:5px 10px;
-            border:2px solid rgb(4, 7, 41);
+            font-size:1.8rem;
+            font-weight:bold;
+            padding:5px 20px;
+            background:#fff;
+            border:1px solid rgb(4, 7, 41);
+            transition:0.5s;
+
+            &:hover{
+                background:rgb(4, 7, 41);
+                color:#fff;
+            }
         }
     }
 }

@@ -84,6 +84,15 @@ a:active {
   margin: 0 auto;
 }
 
+.main .form .fileForm {
+  display: none;
+}
+
+.main .form .btn {
+  padding: 5px 10px;
+  border: 2px solid #040729;
+}
+
 .footer {
   width: 100%;
   padding: 5px 0;

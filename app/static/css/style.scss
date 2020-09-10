@@ -68,6 +68,21 @@ a:active{
         width:70%;
         margin:0 auto;
     }
+
+    .form{
+        .form-label{
+            
+        }
+
+        .fileForm{
+            display:none;
+        }
+
+        .btn{
+            padding:5px 10px;
+            border:2px solid rgb(4, 7, 41);
+        }
+    }
 }
 
 .footer{

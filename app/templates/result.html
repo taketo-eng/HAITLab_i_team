@@ -18,25 +18,7 @@
         <h1>HAIT Lab Primary 4期 Iチーム</h1>
     </header>
     <main class="main">
-
-        <div class="top">
-            <p class="title">あなたはどのセレブに似ているかな？</p>
-            <p class="subtitle">- セレブ判定アプリ -</p>
-        </div>
-
-        <div class="contents">
-            <div class="element">
-                <p class="explain">新型コロナで騒がれる最近の世の中、多くの人々は暗い気持ちになっています。このアプリはその暗い気持ちになっている人に笑いを届け、1人でも多く明るい気持ちにシフトさせるために作られました。</p>
-            </div>
-            
-            <form method="post" class="form" enctype="multipart/form-data">
-                <label class="form-label" for="file">あなたの顔写真をアップロード</label>
-                <input id="file" type="file" name="file" class="fileForm">
-                {{form.submit(class_="btn")}}
-                <p class="file-name">選択したファイル：<span id="selected-file"></span></p>
-            </form>
-        </div>
-
+{{data}}
     </main>
     <footer class="footer">
         <small class="copyrights">©2020 HAIT Lab Primary 4th I_team All rights reserved.</small>

@@ -5,7 +5,7 @@ from wtforms import Form, SubmitField, FileField
 app = Flask(__name__)
 
 class UploadForm(Form):
-    upload = FileField('あなたの顔写真')
+    upload = FileField('あなたの顔写真をアップロード')
 
     submit = SubmitField('判定')
 

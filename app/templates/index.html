@@ -20,11 +20,16 @@
     <main class="main">
 
         <div class="top">
-            <p class="title">ここに開発タイトル</p>
+            <p class="title">あなたはどのセレブに似ているかな？</p>
         </div>
 
         <div class="contents">
-
+            <form class="form">
+                {{form.upload.label(class_="form-label")}}<br>
+                {{form.upload(class_="fileForm")}}
+                <br>
+                {{form.submit(class_="btn")}}
+            </form>
         </div>
 
     </main>

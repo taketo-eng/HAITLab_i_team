@@ -57,6 +57,7 @@ a:active{
         justify-content:center;
         place-items:center;
         flex-direction:column;
+        user-select:none;
 
         .title{
             font-size:4rem;
@@ -75,40 +76,81 @@ a:active{
     }
 
     .contents{
-        width:70%;
-        margin:50px auto;
-    }
+        width:100%;
+        margin:0;
+        position:relative;
+        height:500px;
+        background-image:url("../images/content_1.jpg");
 
-    .form{
-        text-align:center;
-
-        .form-label{
-            font-size:2rem;
-            font-weight:bold;
-            color:#fff;
-            background:rgb(4, 7, 41);
-            padding:5px 10px;
-            cursor:pointer;
-        }
-
-        .fileForm{
-            display:none;
-        }
-
-        .btn{
-            font-size:1.8rem;
-            font-weight:bold;
-            padding:5px 20px;
-            background:#fff;
-            border:1px solid rgb(4, 7, 41);
-            transition:0.5s;
-
-            &:hover{
-                background:rgb(4, 7, 41);
+        .element {
+            position:absolute;
+            width:25%;
+            right:300px;
+            top:50%;
+            padding:20px;
+            transform:translateY(-50%);
+            background:rgba(255,255,255,0.15);
+            .explain{
                 color:#fff;
+                font-size:1.8rem;
+            }
+        }
+        .form{
+            text-align:center;
+            position:absolute;
+            bottom:50px;
+            right:300px;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+
+            .file-name{
+                position:absolute;
+                left:0;
+                bottom:-50px;
+                font-size:1.8rem;
+                color:#fff;
+            }
+
+            .form-label{
+                font-size:2rem;
+                font-weight:bold;
+                color:#fff;
+                background:rgba(255,255,255,0.1);
+                border:1px solid #fff;
+                margin-right:40px;
+                padding:10px 20px;
+                cursor:pointer;
+                transition:0.5s;
+
+                &:hover{
+                    background:#fff;
+                    color:rgb(4, 7, 41);
+                }
+            }
+    
+            .fileForm{
+                display:none;
+            }
+    
+            .btn{
+                font-size:2rem;
+                font-weight:bold;
+                padding:10px 20px;
+                background:#fff;
+                border:1px solid rgb(4, 7, 41);
+                transition:0.5s;
+    
+                &:hover{
+                    background:rgb(4, 7, 41);
+                    color:#fff;
+                }
             }
         }
     }
+
+    
 }
 
 .footer{

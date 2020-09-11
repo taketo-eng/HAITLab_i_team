@@ -37,6 +37,7 @@ a:active{
     justify-content:center;
     align-items:center;
     box-shadow:0 0 10px #333;
+    z-index:2;
     h1{
         color:#fff;
         margin:0;
@@ -45,7 +46,7 @@ a:active{
 }
 
 .main{
-    margin-top:50px;
+    margin-top:0px;
     width:100%;
     .top{
         height:800px;
@@ -72,6 +73,20 @@ a:active{
             color:#fff;
             text-shadow:0 0 10px rgb(231, 228, 44);
             margin:0;
+        }
+    }
+
+    .btn{
+        font-size:2rem;
+        font-weight:bold;
+        padding:10px 20px;
+        background:#fff;
+        border:1px solid rgb(4, 7, 41);
+        transition:0.5s;
+
+        &:hover{
+            background:rgb(4, 7, 41);
+            color:#fff;
         }
     }
 
@@ -134,23 +149,44 @@ a:active{
                 display:none;
             }
     
-            .btn{
-                font-size:2rem;
-                font-weight:bold;
-                padding:10px 20px;
-                background:#fff;
-                border:1px solid rgb(4, 7, 41);
-                transition:0.5s;
-    
-                &:hover{
-                    background:rgb(4, 7, 41);
-                    color:#fff;
-                }
-            }
+            
         }
     }
 
-    
+    /*result page*/
+    .result-box{
+        position:relative;
+        width:100%;
+        height:950px;
+        background-image:url("../images/result-back.jpg");
+        background-position:center center;
+        background-repeat:none;
+        background-size:cover;
+        .result-msg{
+            position:absolute;
+            top:60px;
+            left:300px;
+            color:#fff;
+            font-size:3rem;
+            font-weight:bold;
+            text-shadow:0 0 10px rgb(231, 228, 44);
+        }
+
+        .result-img{
+            position:absolute;
+            top:50%;
+            width:23%;
+            left:300px;
+            transform:translateY(-50%);
+            box-shadow:0 0 10px rgb(4, 7, 41);
+        }
+
+        .btn{
+            position:absolute;
+            left:300px;
+            bottom:60px;
+        }
+    }
 }
 
 .footer{

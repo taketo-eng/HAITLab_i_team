@@ -28,10 +28,10 @@
                 <p class="explain">新型コロナで騒がれる最近の世の中、多くの人々は暗い気持ちになっています。このアプリはその暗い気持ちになっている人に笑いを届け、1人でも多く明るい気持ちにシフトさせるために作られました。</p>
             </div>
             
-            <form method="post" class="form" enctype="multipart/form-data">
+            <form method="post" class="form" enctype="multipart/form-data" action='/upload'>
                 <label class="form-label" for="file">あなたの顔写真をアップロード</label>
                 <input id="file" type="file" name="file" class="fileForm">
-                {{form.submit(class_="btn")}}
+                <input class="btn" type="submit" value="判定">
                 <p class="file-name">選択したファイル：<span id="selected-file"></span></p>
             </form>
         </div>

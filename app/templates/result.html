@@ -18,7 +18,12 @@
         <h1>HAIT Lab Primary 4期 Iチーム</h1>
     </header>
     <main class="main">
-{{data}}
+        {% if result %}
+
+        <img src="{{ url_for('static', filename='images/uploads/') }}{{result}}">
+
+        {% endif %}
+        <p class="btn"><a href="../">Homeに戻る</a></p>
     </main>
     <footer class="footer">
         <small class="copyrights">©2020 HAIT Lab Primary 4th I_team All rights reserved.</small>

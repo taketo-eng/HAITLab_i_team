@@ -46,6 +46,10 @@ a:active {
   -webkit-box-shadow: 0 0 10px #333;
           box-shadow: 0 0 10px #333;
   z-index: 2;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .header h1 {
@@ -135,6 +139,10 @@ a:active {
 .main .contents .element .explain {
   color: #fff;
   font-size: 1.8rem;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .main .contents .form {
@@ -225,6 +233,10 @@ a:active {
   padding: 5px 0;
   text-align: center;
   background: #040729;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 
 .footer .copyrights {

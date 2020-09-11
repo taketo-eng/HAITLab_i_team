@@ -18,12 +18,19 @@
         <h1>HAIT Lab Primary 4期 Iチーム</h1>
     </header>
     <main class="main">
-        {% if result %}
 
-        <img src="{{ url_for('static', filename='images/uploads/') }}{{result}}">
+        <div class="result-box">
+            <p class="result-msg">あなたに似ているセレブはこの人よ</p>
+            {% if result %}
 
-        {% endif %}
-        <p class="btn"><a href="../">Homeに戻る</a></p>
+            <img class="result-img" src="{{ url_for('static', filename='images/uploads/') }}{{result}}">
+    
+            {% endif %}
+            <button class="btn" onclick="location.href='../'">Homeに戻る</button>
+        </div>
+
+        
+        
     </main>
     <footer class="footer">
         <small class="copyrights">©2020 HAIT Lab Primary 4th I_team All rights reserved.</small>

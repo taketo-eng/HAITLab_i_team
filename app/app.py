@@ -30,16 +30,19 @@ def upload():
     if request.method == 'POST':
         #アップロードされたファイル取得
         file = request.files['file']
-        #画像ファイルをnumpyの配列へ変換
+        #画像ファイルをRGBへ変換
         image = Image.open(file)
         image = image.convert('RGB')
-        data = np.asarray(image)
 
+        #numpy配列に変換する場合
+        #data = np.asarray(image)
         #numpy配列から画像へ変換
-        reImg = Image.fromarray(data)
+        #reImg = Image.fromarray(data)
         
-        #結果の画像を一時保存
-        reImg.save(save_url + file.filename)
+        #結果の画像を一時保存(numpy配列変換なし)
+        image.save(save_url + file.filename)
+        #結果の画像を一時保存(numpy配列変換あり)
+        #reImg.save(save_url + file.filename)
 
         return render_template('result.html', result=file.filename)
 

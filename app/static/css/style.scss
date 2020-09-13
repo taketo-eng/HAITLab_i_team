@@ -172,6 +172,10 @@ a:active{
             font-size:3rem;
             font-weight:bold;
             text-shadow:0 0 10px rgb(231, 228, 44);
+
+            &.false{
+                top:100px;
+            }
         }
 
         .result-img{

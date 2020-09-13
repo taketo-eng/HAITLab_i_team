@@ -211,6 +211,10 @@ a:active {
   text-shadow: 0 0 10px #e7e42c;
 }
 
+.main .result-box .result-msg.false {
+  top: 100px;
+}
+
 .main .result-box .result-img {
   position: absolute;
   top: 50%;

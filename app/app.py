@@ -12,6 +12,17 @@ app = Flask(__name__)
 #画像の一時保存フォルダ
 save_url = './static/images/uploads/'
 
+#ファイルが画像ファイルかどうか確認
+allowed_files = ['jpg', 'jpeg', 'png', 'svg', 'JPG', 'JPEG']
+
+def check_file(file_name):
+    file_type = file_name.split('.')[1]
+    for a in range(len(allowed_files)):
+        if(file_type == allowed_files[a]):
+            return 1
+    return 0
+    
+
 @app.route('/')
 def predicts():
     #uploadsフォルダ内にあるファイルを確認
@@ -30,21 +41,27 @@ def upload():
     if request.method == 'POST':
         #アップロードされたファイル取得
         file = request.files['file']
-        #画像ファイルをRGBへ変換
-        image = Image.open(file)
-        image = image.convert('RGB')
 
-        #numpy配列に変換する場合
-        #data = np.asarray(image)
-        #numpy配列から画像へ変換
-        #reImg = Image.fromarray(data)
+        if check_file(file.filename):
+            #画像ファイルをRGBへ変換
+            image = Image.open(file)
+            image = image.convert('RGB')
+
+            #numpy配列に変換する場合
+            #data = np.asarray(image)
+            #numpy配列から画像へ変換
+            #reImg = Image.fromarray(data)
+            
+            #結果の画像を一時保存(numpy配列変換なし)
+            image.save(save_url + file.filename)
+            #結果の画像を一時保存(numpy配列変換あり)
+            #reImg.save(save_url + file.filename)
+            return render_template('result.html', result=file.filename)
+        else:
+            return render_template('result.html', msg='って、あなた...', msg2='しっかり画像ファイルをアップロードしなさいよ！')
         
-        #結果の画像を一時保存(numpy配列変換なし)
-        image.save(save_url + file.filename)
-        #結果の画像を一時保存(numpy配列変換あり)
-        #reImg.save(save_url + file.filename)
 
-        return render_template('result.html', result=file.filename)
+        
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

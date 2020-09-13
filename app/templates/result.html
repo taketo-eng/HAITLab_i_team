@@ -21,6 +21,9 @@
 
         <div class="result-box">
             <p class="result-msg">あなたに似ているセレブはこの人よ</p>
+            {% if msg %}
+            <p class="result-msg false">{{msg}}<br>{{msg2}}</p>
+            {% endif %}
             {% if result %}
 
             <img class="result-img" src="{{ url_for('static', filename='images/uploads/') }}{{result}}">

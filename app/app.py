@@ -1,4 +1,6 @@
 import os
+import gan
+#from ipynb.fs.full.gan import *
 from flask import Flask, request, render_template
 from wtforms import Form, SubmitField, validators, ValidationError
 from PIL import Image
@@ -22,17 +24,21 @@ def check_file(file_name):
             return 1
     return 0
     
-
-@app.route('/')
-def predicts():
+src = './static/images/uploads'
+def deleteImg():
     #uploadsフォルダ内にあるファイルを確認
-    src = './static/images/uploads'
+    
     all_file = glob.glob("%s/*" % src)
     print(all_file)
     #uploadsフォルダ内に画像ファイルがある場合それをすべて削除
     if all_file:
         for f in all_file:
             os.remove(f)
+
+@app.route('/')
+def predicts():
+    
+    deleteImg()
 
     return render_template('index.html')
 
@@ -56,7 +62,22 @@ def upload():
             image.save(save_url + file.filename)
             #結果の画像を一時保存(numpy配列変換あり)
             #reImg.save(save_url + file.filename)
-            return render_template('result.html', result=file.filename)
+
+            if gan.image_from_module_space:
+                target_image = gan.get_module_space_image()
+            else:
+                target_image = gan.upload_image(save_url + file.filename)
+            target_image= target_image.astype("float32")
+            print(target_image.shape)
+
+            images, loss = gan.find_closest_latent_vector(gan.initial_vector, gan.num_optimization_steps, gan.steps_per_image, target_image)
+
+            deleteImg()
+
+            for i,img in enumerate(images):
+                img.save(save_url + i + 'jpg')
+
+            return render_template('result.html', result=glob.glob("%s/*" % src))
         else:
             return render_template('result.html', msg='って、あなた...', msg2='しっかり画像ファイルをアップロードしなさいよ！')
         

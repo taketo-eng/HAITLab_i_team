@@ -26,7 +26,7 @@
             {% endif %}
             {% if result %}
 
-            <img class="result-img" src="{{ url_for('static', filename='images/uploads/') }}{{result}}">
+            <img class="result-img" src="{{ url_for('static', filename='images/') }}{{result[0]}}">
     
             {% endif %}
             <button class="btn" onclick="location.href='../'">Homeに戻る</button>

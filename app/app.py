@@ -27,7 +27,6 @@ def check_file(file_name):
 src = './static/images/uploads'
 def deleteImg():
     #uploadsフォルダ内にあるファイルを確認
-    
     all_file = glob.glob("%s/*" % src)
     print(all_file)
     #uploadsフォルダ内に画像ファイルがある場合それをすべて削除
@@ -35,46 +34,55 @@ def deleteImg():
         for f in all_file:
             os.remove(f)
 
+#ProGanの処理
+#filenameを受け取り、一時保存した画像を取得できるようにしている
+def ganProcess(filename):
+    if gan.image_from_module_space:
+        target_image = gan.get_module_space_image()
+    else:
+        #ファイル取得
+        target_image = gan.upload_image(save_url + filename)
+        target_image= target_image.astype("float32")
+        #学習
+        images, loss = gan.find_closest_latent_vector(gan.initial_vector, gan.num_optimization_steps, gan.steps_per_image, target_image)
+        #学習結果で得られた画像をgifに変換し、保存する
+        gan.animate(np.stack(images))
+
+
 @app.route('/', methods=['GET', 'POST'])
 def predicts():
-    
+    #uploadsフォルダがパンクしないように削除処理
     deleteImg()
+
+    msg = ['って、あなた...', 'しっかり画像ファイルをアップロードしなさいよ！']
+    #送信されたら以下のif文がTrue
     if request.method == 'POST':
-#アップロードされたファイル取得
+    #アップロードされたファイル取得
         file = request.files['file']
 
-        if check_file(file.filename):
-            #画像ファイルをRGBへ変換
-            image = Image.open(file)
-            image = image.convert('RGB')
+        if not check_file(file.filename):
+            #画像以外のファイルが送信された時の処理
+            return render_template('result.html', msg=msg[0], msg2=msg[1])
+        
+        if file.filename == '':
+            #画像ファイル名が存在しないときもダメ
+            return render_template('result.html', msg=msg[0], msg2=msg[1])
+        
+        #問題なく突破すれば下の処理に進む
+        #画像ファイルをRGBへ変換
+        image = Image.open(file)
+        image = image.convert('RGB')
+        #アップロード画像を一時保存し、のちのGANに渡せるようにする
+        image.save(save_url + file.filename)
 
-            #numpy配列に変換する場合
-            #data = np.asarray(image)
-            #numpy配列から画像へ変換
-            #reImg = Image.fromarray(data)
+
+        #学習回数 default value is 200
+        gan.num_optimization_steps=10000
+
+        #ProGanの処理関数
+        ganProcess(file.filename)
+        return render_template('result.html', result='animation.gif')
             
-            #結果の画像を一時保存(numpy配列変換なし)
-            image.save(save_url + file.filename)
-            #結果の画像を一時保存(numpy配列変換あり)
-            #reImg.save(save_url + file.filename)
-
-            if gan.image_from_module_space:
-                target_image = gan.get_module_space_image()
-            else:
-                print('false')
-                target_image = gan.upload_image(save_url + file.filename)
-            target_image= target_image.astype("float32")
-            print(target_image.shape)
-
-            images, loss = gan.find_closest_latent_vector(gan.initial_vector, gan.num_optimization_steps, gan.steps_per_image, target_image)
-            print(np.array(images).shape)
-            #deleteImg()
-
-            gan.animate(np.stack(images))
-
-            return render_template('result.html', result='animation.gif')
-        else:
-            return render_template('result.html', msg='って、あなた...', msg2='しっかり画像ファイルをアップロードしなさいよ！')
     else:
         return render_template('index.html')
 

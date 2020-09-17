@@ -25,11 +25,9 @@
             <p class="result-msg false">{{msg}}<br>{{msg2}}</p>
             {% endif %}
             {% if result %}
-
-            <img class="result-img" src="{{ url_for('static', filename='images/') }}{{result[0]}}">
-    
+            <img class="result-img" src="{{ url_for('static', filename='images/uploads/') }}{{result}}">
             {% endif %}
-            <button class="btn" onclick="location.href='../'">Homeに戻る</button>
+            <button class="btn" onclick="location.href='./'">Homeに戻る</button>
         </div>
 
         

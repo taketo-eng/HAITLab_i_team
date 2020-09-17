@@ -13,12 +13,12 @@ import tensorflow_hub as hub
 from tensorflow_docs.vis import embed
 import time
 
-try:
-  from google.colab import files
-except ImportError:
-  pass
+# try:
+#   from google.colab import files
+# except ImportError:
+#   pass
 
-from IPython import display
+#from IPython import display
 from skimage import transform
 
 # We could retrieve this value from module.get_input_shapes() if we didn't know
@@ -74,7 +74,7 @@ initial_vector = tf.random.normal([1, latent_dim])
 
 
 
-num_optimization_steps=50 #200　意図的に少なくしている
+num_optimization_steps=200 #default = 200
 steps_per_image=5
 
 def find_closest_latent_vector(initial_vector, num_optimization_steps,

@@ -3,16 +3,18 @@ from absl import logging
 
 import imageio
 import PIL.Image
+from PIL import Image
 import matplotlib.pyplot as plt
 import numpy as np
 
 import tensorflow as tf
-tf.random.set_seed(0)
+#tf.random.set_seed(0)
 
 import tensorflow_hub as hub
 from tensorflow_docs.vis import embed
 import time
 
+import random
 # try:
 #   from google.colab import files
 # except ImportError:
@@ -55,7 +57,7 @@ logging.set_verbosity(logging.ERROR)
 
 progan = hub.load("https://tfhub.dev/google/progan-128/1").signatures['default']
 
-###########これを実行すると、写真アップロード画面が出てくるからそこで写真を選択（基本jpegで）
+
 
 image_from_module_space = False  # @param { isTemplate:true, type:"boolean" }
 
@@ -68,21 +70,24 @@ def upload_image(file):
   image = imageio.imread(file)
   return transform.resize(image, [128, 128])
 
-tf.random.set_seed(46)
-initial_vector = tf.random.normal([1, latent_dim])
+#tf.random.set_seed(random.random()*100) #固定したくないからコメントアウト
+#initial_vector = tf.random.normal([1, latent_dim]) #更新のためfind_closest_latent_vector関数内で定義
 
 
 
 
 num_optimization_steps=200 #default = 200
-steps_per_image=5
+steps_per_image=5 #default = 5
 
-def find_closest_latent_vector(initial_vector, num_optimization_steps,
+def find_closest_latent_vector(num_optimization_steps,
                                steps_per_image, target_image):
   images = []
   losses = []
 
+  #関数が呼び出された時に更新したいからinitial_vectorは関数内で定義
+  initial_vector = tf.random.normal([1, latent_dim])
   vector = tf.Variable(initial_vector)  
+  #print(vector)
   optimizer = tf.optimizers.Adam(learning_rate=0.01)
   loss_fn = tf.losses.MeanAbsoluteError(reduction="sum")
 
@@ -94,6 +99,12 @@ def find_closest_latent_vector(initial_vector, num_optimization_steps,
       image = progan(vector.read_value())['default'][0]
       if (step % steps_per_image) == 0:
         images.append(image.numpy())
+
+      #最後の結果だけ長めに見れるように用意
+      if step == (num_optimization_steps-1):
+        print('True')
+        for _ in range(10):
+          images.append(image.numpy())
       target_image_difference = loss_fn(image, target_image[:,:,:3])
       # The latent vectors were sampled from a normal distribution. We can get
       # more realistic images if we regularize the length of the latent vector to 

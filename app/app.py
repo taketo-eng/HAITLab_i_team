@@ -8,8 +8,11 @@ import numpy as np
 
 import glob
 
+import tensorflow as tf
+
 #Flaskを定義
 app = Flask(__name__)
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 
 #画像の一時保存フォルダ
 save_url = './static/images/uploads/'
@@ -43,9 +46,16 @@ def ganProcess(filename):
         #ファイル取得
         target_image = gan.upload_image(save_url + filename)
         target_image= target_image.astype("float32")
+      
         #学習
-        images, loss = gan.find_closest_latent_vector(gan.initial_vector, gan.num_optimization_steps, gan.steps_per_image, target_image)
+        images, loss = gan.find_closest_latent_vector(gan.num_optimization_steps, gan.steps_per_image, target_image)
+
+        #test保存(学習後)
+        test2 = Image.fromarray((images[len(images)-1] * 255).astype(np.uint8))
+        test2.save(save_url+'test2.jpg')
+
         #学習結果で得られた画像をgifに変換し、保存する
+        print(np.array(images).shape)
         gan.animate(np.stack(images))
 
 
@@ -53,12 +63,14 @@ def ganProcess(filename):
 def predicts():
     #uploadsフォルダがパンクしないように削除処理
     deleteImg()
-
-    msg = ['って、あなた...', 'しっかり画像ファイルをアップロードしなさいよ！']
+    
     #送信されたら以下のif文がTrue
     if request.method == 'POST':
-    #アップロードされたファイル取得
+        #アップロードされたファイル取得
         file = request.files['file']
+
+        #画像以外のファイルがアップロードされた時の文言
+        msg = ['って、あなた...', 'しっかり画像ファイルをアップロードしなさいよ！']
 
         if not check_file(file.filename):
             #画像以外のファイルが送信された時の処理
@@ -77,7 +89,7 @@ def predicts():
 
 
         #学習回数 default value is 200
-        gan.num_optimization_steps=10000
+        gan.num_optimization_steps=200
 
         #ProGanの処理関数
         ganProcess(file.filename)
@@ -86,9 +98,6 @@ def predicts():
     else:
         return render_template('index.html')
 
-        
-
-        
 
 if __name__ == '__main__':
     app.run(debug=True, port=8000)

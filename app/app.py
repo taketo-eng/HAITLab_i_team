@@ -35,17 +35,12 @@ def deleteImg():
         for f in all_file:
             os.remove(f)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def predicts():
     
     deleteImg()
-
-    return render_template('index.html')
-
-@app.route('/upload', methods=['POST'])
-def upload():
     if request.method == 'POST':
-        #アップロードされたファイル取得
+#アップロードされたファイル取得
         file = request.files['file']
 
         if check_file(file.filename):
@@ -66,20 +61,23 @@ def upload():
             if gan.image_from_module_space:
                 target_image = gan.get_module_space_image()
             else:
+                print('false')
                 target_image = gan.upload_image(save_url + file.filename)
             target_image= target_image.astype("float32")
             print(target_image.shape)
 
             images, loss = gan.find_closest_latent_vector(gan.initial_vector, gan.num_optimization_steps, gan.steps_per_image, target_image)
+            print(np.array(images).shape)
+            #deleteImg()
 
-            deleteImg()
+            gan.animate(np.stack(images))
 
-            for i,img in enumerate(images):
-                img.save(save_url + i + 'jpg')
-
-            return render_template('result.html', result=glob.glob("%s/*" % src))
+            return render_template('result.html', result='animation.gif')
         else:
             return render_template('result.html', msg='って、あなた...', msg2='しっかり画像ファイルをアップロードしなさいよ！')
+    else:
+        return render_template('index.html')
+
         
 
         

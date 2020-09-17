@@ -48,14 +48,12 @@ def interpolate_hypersphere(v1, v2, num_steps):
 def animate(images):
   images = np.array(images)
   converted_images = np.clip(images * 255, 0, 255).astype(np.uint8)
-  imageio.mimsave('./animation.gif', converted_images)
-  return embed.embed_file('./animation.gif')
+  imageio.mimsave('./static/images/uploads/animation.gif', converted_images)
 
 logging.set_verbosity(logging.ERROR)
 
 
 progan = hub.load("https://tfhub.dev/google/progan-128/1").signatures['default']
-
 
 ###########これを実行すると、写真アップロード画面が出てくるからそこで写真を選択（基本jpegで）
 
@@ -76,7 +74,7 @@ initial_vector = tf.random.normal([1, latent_dim])
 
 
 
-num_optimization_steps=200
+num_optimization_steps=50 #200　意図的に少なくしている
 steps_per_image=5
 
 def find_closest_latent_vector(initial_vector, num_optimization_steps,

@@ -226,6 +226,15 @@ a:active {
           box-shadow: 0 0 10px #040729;
 }
 
+.main .result-box .result-img.left {
+  left: 100px;
+}
+
+.main .result-box .result-img.right {
+  width: 10%;
+  left: 600px;
+}
+
 .main .result-box .btn {
   position: absolute;
   left: 300px;

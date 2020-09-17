@@ -89,11 +89,11 @@ def predicts():
 
 
         #学習回数 default value is 200
-        gan.num_optimization_steps=200
+        gan.num_optimization_steps=50
 
         #ProGanの処理関数
         ganProcess(file.filename)
-        return render_template('result.html', result='animation.gif')
+        return render_template('result.html', result='animation.gif', filename=file.filename)
             
     else:
         return render_template('index.html')

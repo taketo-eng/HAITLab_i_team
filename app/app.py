@@ -1,14 +1,10 @@
 import os
-import gan
-#from ipynb.fs.full.gan import *
+import gan #gan.py読み込み
 from flask import Flask, request, render_template
-from wtforms import Form, SubmitField, validators, ValidationError
 from PIL import Image
 import numpy as np
 
 import glob
-
-import tensorflow as tf
 
 #Flaskを定義
 app = Flask(__name__)
@@ -18,7 +14,7 @@ app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 save_url = './static/images/uploads/'
 
 #ファイルが画像ファイルかどうか確認
-allowed_files = ['jpg', 'jpeg', 'png', 'svg', 'JPG', 'JPEG']
+allowed_files = ['jpg', 'jpeg', 'png', 'JPG', 'JPEG']
 
 def check_file(file_name):
     file_type = file_name.split('.')[1]
@@ -49,10 +45,6 @@ def ganProcess(filename):
       
         #学習
         images, loss = gan.find_closest_latent_vector(gan.num_optimization_steps, gan.steps_per_image, target_image)
-
-        #test保存(学習後)
-        test2 = Image.fromarray((images[len(images)-1] * 255).astype(np.uint8))
-        test2.save(save_url+'test2.jpg')
 
         #学習結果で得られた画像をgifに変換し、保存する
         print(np.array(images).shape)
